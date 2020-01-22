@@ -19,7 +19,7 @@ function staggerFade() {
 // =================================================
 
 function skycons() {
-	var i,
+	let i,
 			icons = new Skycons({
 				"color" : "#FFFFFF",
 				"resizeClear": true // nasty android hack
@@ -39,7 +39,7 @@ function skycons() {
 
 	// loop thru icon list array
 	for(i = list.length; i--;) {
-		var weatherType = list[i], // select each icon from list array
+		let weatherType = list[i], // select each icon from list array
 				// icons will have the name in the array above attached to the
 				// canvas element as a class so let's hook into them.
 				elements    = document.getElementsByClassName( weatherType );
@@ -61,7 +61,7 @@ function skycons() {
 
 // convert degrees to celsius
 function fToC(fahrenheit) {
-	var fTemp  = fahrenheit,
+	let fTemp  = fahrenheit,
 			fToCel = (fTemp - 32) * 5 / 9;
 
 	return fToCel;
@@ -73,17 +73,17 @@ function fToC(fahrenheit) {
 // =================================================
 
 function weatherReport(latitude, longitude) {
-	// variables config for coordinates, url and api key
+	// letiables config for coordinates, url and api key
 	// latitude and longitude are accepted arguments and passed
 	// once a user has submitted the form.
-	var apiKey       = '83222a5584605220420e32267a417267',
+	let apiKey       = '83222a5584605220420e32267a417267',
 			url          = 'https://api.darksky.net/forecast/',
 			lati         = latitude,
 			longi        = longitude,
 			api_call     = url + apiKey + "/" + lati + "," + longi + "?extend=hourly&callback=?";
 
 	// Hold our days of the week for reference later.
-	var days = [
+	let days = [
 		'Sunday',
 		'Monday',
 		'Tuesday',
@@ -95,7 +95,7 @@ function weatherReport(latitude, longitude) {
 
 	// Hold hourly values for each day of the week.
 	// This will store our 24 hour forecast results.
-	var sunday    = [],
+	let sunday    = [],
 			monday    = [],
 			tuesday   = [],
 			wednesday = [],
@@ -104,11 +104,11 @@ function weatherReport(latitude, longitude) {
 			saturday  = [];
 
 	// Celsius button check. Is it toggled or not?
-	var isCelsiusChecked = $('#celsius:checked').length > 0;
+	let isCelsiusChecked = $('#celsius:checked').length > 0;
 
 	// Hourly report method to reference in our daily loop
 	function hourlyReport(day, selector) {
-		for(var i = 0, l = day.length; i < l; i++) {
+		for(let i = 0, l = day.length; i < l; i++) {
 			$("." + selector + " " + "ul").append('<li>' + Math.round(day[i]) + '</li>');
 		}
 	}
@@ -117,8 +117,8 @@ function weatherReport(latitude, longitude) {
 	$.getJSON(api_call, function(forecast) {
 
 		// Loop thru hourly forecasts
-		for(var j = 0, k = forecast.hourly.data.length; j < k; j++) {
-			var hourly_date    = new Date(forecast.hourly.data[j].time * 1000),
+		for(let j = 0, k = forecast.hourly.data.length; j < k; j++) {
+			let hourly_date    = new Date(forecast.hourly.data[j].time * 1000),
 					hourly_day     = days[hourly_date.getDay()],
 					hourly_temp    = forecast.hourly.data[j].temperature;
 
@@ -158,9 +158,9 @@ function weatherReport(latitude, longitude) {
 		}
 
 		// Loop thru daily forecasts
-		for(var i = 0, l = forecast.daily.data.length; i < l - 1; i++) {
+		for(let i = 0, l = forecast.daily.data.length; i < l - 1; i++) {
 
-			var date     = new Date(forecast.daily.data[i].time * 1000),
+			let date     = new Date(forecast.daily.data[i].time * 1000),
 					day      = days[date.getDay()],
 					skicons  = forecast.daily.data[i].icon,
 					time     = forecast.daily.data[i].time,
@@ -230,7 +230,7 @@ function weatherReport(latitude, longitude) {
 
 // Get Weather Button Event
 $('button').on('click', function(e) {
-	var lat       = $('#latitude').val(),
+	let lat       = $('#latitude').val(),
 			long      = $('#longitude').val(),
 			city_name = $('#city-search').val()
 
@@ -264,7 +264,7 @@ $('body').on('click', '#back', function() {
 // =================================================
 
 function insertGoogleScript() {
-	var google_api = document.createElement('script'),
+	let google_api = document.createElement('script'),
 			api_key    = 'AIzaSyAfWu_rmDBIwlSLZwVzcLyFhvhiEAQP0r8';
 
 	// Inject the script for Google's API and reference the initGoogleAPI
@@ -276,10 +276,10 @@ function insertGoogleScript() {
 
 // SearchBox Method
 function initGoogleAPI() {
-	var autocomplete = new google.maps.places.SearchBox(document.querySelector("#city-search"));
+	let autocomplete = new google.maps.places.SearchBox(document.querySelector("#city-search"));
 
 	autocomplete.addListener('places_changed', function() {
-		var place = autocomplete.getPlaces()[0];
+		let place = autocomplete.getPlaces()[0];
 		document.querySelector("#latitude").value = place.geometry.location.lat();
 		document.querySelector("#longitude").value = place.geometry.location.lng();
 	});
