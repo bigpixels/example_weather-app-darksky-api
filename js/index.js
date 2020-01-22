@@ -95,7 +95,7 @@ function weatherReport(latitude, longitude) {
 
 	// Hold hourly values for each day of the week.
 	// This will store our 24 hour forecast results.
-	let sunday    = [],
+	let 	sunday    = [],
 			monday    = [],
 			tuesday   = [],
 			wednesday = [],
